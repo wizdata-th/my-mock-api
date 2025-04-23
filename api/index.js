@@ -1,10 +1,11 @@
-// สร้าง Mock API ง่ายๆ
+const db = require('../db.json');
+
 module.exports = (req, res) => {
-  res.json({ 
-    message: 'Hello from free API!',
-    data: {
-      users: [],
-      timestamp: new Date().toISOString()
-    }
-  });
+  if (req.method === 'POST') {
+    const newUser = req.body;
+    db.users.push(newUser);
+    return res.status(201).json(newUser);
+  }
+  
+  res.json(db);
 };
